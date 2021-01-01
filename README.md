@@ -1,7 +1,9 @@
 ViewModel and ViewModelFactory - Starter Code
 ==================================
-
+En:
 Use as starter code for the ViewModel codelab.
+Es:
+Usar como código de inicio para el codelab de ViewModel
 
 Introduction
 ------------
