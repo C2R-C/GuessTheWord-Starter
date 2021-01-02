@@ -17,6 +17,16 @@ Uso de ViewModel y ViewModelFactory
 -----------------------------------
 
 
+Implementando LiveData
+----------------------
+
+En GameViewModel Se cambió el tipo de las variables word y score quedando así:
+~~~ kotlin
+var word = MutableLiveData<String>()
+var score = MutableLiveData<Int>()
+~~~
+
+
 
 Introduction
 ------------
