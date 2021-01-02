@@ -12,7 +12,8 @@ Respuestas a preguntas del codelab
 2. Cierto es que, un `ViewModel` nunca debe contener referencias a fragmentos, actividades o vistas
 3. El `ViewModel` se destruye cuando Cuando el controlador de IU asociado está terminado (si es una actividad) o desconectado (si es un fragmento).
 4. La interfaz `ViewModelFactory` sirve para instanciar un objeto `ViewModel`
-
+5. `LiveData` encapsula lo almacenado en un `ViewModel` para que los objetos externos puedan leer datos sin poder actualizarlos creando dentro del objeto `ViewModel` el tipo de datos a `MutableLiveData` pasándolos como datos `private`, Luego se utiliza una propiedad de respaldo para exponer los datos de solo lectura del tipo `LiveData`.
+6. 
 Uso de ViewModel y ViewModelFactory
 -----------------------------------
 
