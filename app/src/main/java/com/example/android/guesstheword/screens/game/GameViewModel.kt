@@ -1,21 +1,28 @@
 package com.example.android.guesstheword.screens.game
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class GameViewModel: ViewModel() {
+class GameViewModel : ViewModel() {
 
     // The current word
-    var word = MutableLiveData<String>()
+    private val _word = MutableLiveData<String>()
+    val word: LiveData<String>
+        get() = _word
+
     // The current score. Para uso de LiveData se cambia el tipo
-    var score = MutableLiveData<Int>()
+    private val _score = MutableLiveData<Int>()
+    val score: LiveData<Int>
+        get() = _score
+
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
 
     init {
-        word.value = ""
-        score.value = 0
+        _word.value = ""
+        _score.value = 0
         resetList()
         nextWord()
         Log.i("GameViewModel", "GameViewModel Created")
@@ -57,8 +64,8 @@ class GameViewModel: ViewModel() {
     private fun nextWord() {
         if (!wordList.isEmpty()) {
             //Select and remove a word from the list
-                // Así mismo, se adiciona propiedad value al objeto word
-            word.value = wordList.removeAt(0)
+            // Así mismo, se adiciona propiedad value al objeto word
+            _word.value = wordList.removeAt(0)
         }
 
     }
@@ -69,12 +76,12 @@ class GameViewModel: ViewModel() {
         /** Como el tipo cambió, así mismo se cambia el decremento de score-- usando la función
          * minus() que realiza la resta null-safety
          */
-        score.value = (score.value)?.minus(1)
+        _score.value = (score.value)?.minus(1)
         nextWord()
     }
 
     fun onCorrect() {
-        score.value = (score.value)?.plus(1)
+        _score.value = (score.value)?.plus(1)
         nextWord()
     }
 
