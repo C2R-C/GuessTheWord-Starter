@@ -20,6 +20,11 @@ class GameViewModel : ViewModel() {
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
 
+    // Evento de juego terminado
+    private val _eventGameFinish = MutableLiveData<Boolean>()
+    val eventGameFinish: LiveData<Boolean>
+    get() = _eventGameFinish
+
     init {
         _word.value = ""
         _score.value = 0
@@ -62,9 +67,9 @@ class GameViewModel : ViewModel() {
      * Moves to the next word in the list
      */
     private fun nextWord() {
-        if (!wordList.isEmpty()) {
-            //Select and remove a word from the list
-            // Así mismo, se adiciona propiedad value al objeto word
+        if (wordList.isEmpty()) {
+            onGameFinish()
+        } else {
             _word.value = wordList.removeAt(0)
         }
 
@@ -89,5 +94,10 @@ class GameViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         Log.i("GameViewModel", "GameViewModel destroyed")
+    }
+
+    // Method for finished game
+    fun onGameFinish() {
+        _eventGameFinish.value = true
     }
 }

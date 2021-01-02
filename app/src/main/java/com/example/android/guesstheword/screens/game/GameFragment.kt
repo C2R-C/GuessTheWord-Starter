@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -40,6 +41,10 @@ class GameFragment : Fragment() {
         viewModel = ViewModelProvider(this)
                 .get(GameViewModel::class.java)
 
+        viewModel.eventGameFinish.observe(viewLifecycleOwner, { hasFinished ->
+            if (hasFinished) gameFinished()
+        })
+
         binding.correctButton.setOnClickListener { onCorrect() }
         binding.skipButton.setOnClickListener { onSkip() }
         binding.endGameButton.setOnClickListener { onEndGame() }
@@ -70,15 +75,15 @@ class GameFragment : Fragment() {
 
     /** Methods for navigate Game to Score*/
     private fun onEndGame() {
-        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
         gameFinished()
     }
 
     private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore()
-        // Se agrega la verificación de seguridad de null requerida, es decir, Elvis.
-        action.score = viewModel.score.value?:0
-        NavHostFragment.findNavController(this).navigate(action)
+        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
+//        val action = GameFragmentDirections.actionGameToScore()
+//        // Se agrega la verificación de seguridad de null requerida, es decir, Elvis.
+//        action.score = viewModel.score.value?:0
+//        NavHostFragment.findNavController(this).navigate(action)
     }
 
 }
